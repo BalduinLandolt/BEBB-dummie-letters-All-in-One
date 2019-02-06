@@ -1,0 +1,7 @@
+*.xml
+*.iml
+venv/*
+*.marc
+
+!input/xml/test.xml
+!input/xml/test2.xml
