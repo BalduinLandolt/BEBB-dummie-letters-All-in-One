@@ -20,18 +20,24 @@ def get_info_from_aleph(force, test):
 def test_mc():
     no = "000054744"
     read_mc(no)
+    import random
+    print(random.randint(0,100))
 
 
 def read_mc(sys_no):
     print("reading: "+sys_no)
 
-    conn = zoom.Connection('aleph.unibas.ch', 9909)
-    conn.databaseName = 'dsv05'
-    conn.preferredRecordSyntax = 'USMARC'
+    try:
+        conn = zoom.Connection('aleph.unibas.ch', 9909)
+        conn.databaseName = 'dsv05'
+        conn.preferredRecordSyntax = 'USMARC'
 
-    query = zoom.Query('PQF', '@attr 1=1032 ' + sys_no)
-    res = conn.search(query)
-    data = bytes(res[0].data)
+        query = zoom.Query('PQF', '@attr 1=1032 ' + sys_no)
+        res = conn.search(query)
+        data = bytes(res[0].data)
+    except zoom.ConnectionError:
+        print("could not connect to aleph.")
+        return
 
     print(data)
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
