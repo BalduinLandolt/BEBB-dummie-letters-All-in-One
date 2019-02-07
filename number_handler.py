@@ -1,4 +1,5 @@
 import os
+from lxml import etree
 
 
 force_all = False
@@ -53,30 +54,46 @@ def get_used_sys_no_list():
 
 
 def grab_used_nos():
-    """
-    print("getting a list of the contents of the directory...")
-    files = listdir("input/xml")
+    # TODO implement this
+
+    files = os.listdir("data/input/xml")
     print("found:")
     print(files)
-    print()
-    res = ""
+    print("")
+    res = []
     for file in files:
         print(file)
-        sys_no = get_by_name(len(file))
-        res += sys_no + "\n"
+        sys_no = get_by_name(file)
+        res.append(sys_no)
 
     print("Result: ")
     print(res)
-    with open("input/existing_numbers.txt", "w") as out_file:
+    """with open("input/existing_numbers.txt", "w") as out_file:
         print(res, file=out_file)
 
-    print("handled all files in folder.")
-    """
-    res = []
+    print("handled all files in folder.")"""
+
     return res
 
 
+def get_by_name(name):
+    print("trying to load data by name ("+name+")...")
+    prefix = "data/input/xml/"
+    sysNo = ""
+    try:
+        root = etree.parse(prefix + name, etree.XMLParser(load_dtd=True)).getroot()
+        print(etree.tostring(root))
+        sysNo = root.get("catalogue_id")
+        print(sysNo)
+        print("got file by name.\n")
+    except OSError:
+        print("Could not read File: " + name + "\n")
+    return sysNo
+
+
 def read_used_nos():
+    # TODO implement this
+
     """
 
     """
@@ -85,6 +102,8 @@ def read_used_nos():
 
 
 def write_used_nos(list):
+    # TODO implement this
+
     """
 
     """

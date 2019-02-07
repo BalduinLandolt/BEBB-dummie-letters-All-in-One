@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <!-- 
+        
+    Comments for a Meditatio. File should named like this: ../comments/Med_151_comments.xml
+
+    <comments>
+        <comment id="1">
+            ...
+        </comment>
+    
+    </comments>    
+    
+    A <comments> consists of on or more <comment>, each of which represents a specific comment.
+    
+    Attributes:
+    - "id": the id of the Meditatio
+    
+    -->
+    
+    <xs:element name="comments">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="1">
+                <xs:element name="comment" type="comment_element"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- 
+        
+    Represents a comment, provided in different languages. The id must be unique within the Meditatio.    
+    
+    <comment id="1">
+        <language lang="German">
+           ...
+        </language>
+        <language lang="English">
+           ...
+        </language>
+    </comment>
+
+    Attributes:
+    - "id": the id of the comment
+
+    -->
+    
+    <xs:complexType name="comment_element">
+        <xs:choice maxOccurs="unbounded" minOccurs="1">
+            <xs:element name="language" type="language_element"/>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:anyURI" use="required"/>
+    </xs:complexType>
+    
+    <!-- 
+    
+        <language lang="German">
+           ...
+        </language>
+        
+        The language specific version of a comment.
+        
+        Attributes:
+        - "lang": the language of the comment
+    -->
+    
+    <xs:simpleType name="lang_attribute">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Latin"/> <!-- Latin -->
+            <xs:enumeration value="German"/> <!-- German -->
+            <xs:enumeration value="English"/> <!-- English -->
+            <xs:enumeration value="French"/> <!-- French -->
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+    <xs:complexType name="language_element">
+        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="p" type="paragraph_element"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="lang" type="lang_attribute" use="required"/>
+    </xs:complexType>
+    
+    <!-- 
+    
+        <p>
+            Paragraph
+        </p>
+    
+    Paragraph in a comment. 
+    At least one paragraph is required.
+    
+    -->
+    
+    <xs:complexType mixed="true" name="paragraph_element">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="person" type="person_element"></xs:element>
+            <xs:element name="biblio" type="biblio_element"></xs:element>
+            <xs:element name="title" type="title_element"></xs:element>
+            <xs:element name="em" type="emphasized_element"></xs:element>
+            <xs:element name="formula" type="formula_element"></xs:element>
+        </xs:choice>
+    </xs:complexType>
+    
+    
+    <!-- 
+        
+        <person [(beolid="beolid"|gnd="gnd")] exists="true|false">first name last name</person>
+        
+        Reference to a person in the beol person index.
+    
+        Attributes:
+         - "exists": indicates if referenced person already exists in the beol person index.
+         - "beolid": beolid of the referenced person, if existing in the beol person index.
+         - "gnd": gnd of the referenced person, if existing in beol person index.
+    
+    -->
+    
+    <xs:simpleType name="beolid_attribute">
+        <xs:restriction base="xs:string"></xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="gnd_attribute">
+        <xs:restriction base="xs:string"></xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="exists_attribute">
+        <xs:restriction base="xs:boolean"></xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType mixed="true" name="person_element">
+        <xs:attribute name="beolid" type="beolid_attribute" use="optional"/>
+        <xs:attribute name="gnd" type="gnd_attribute" use="optional"/>
+        <xs:attribute name="exists" type="exists_attribute" use="required"/>
+    </xs:complexType>
+    
+    <!-- 
+    
+        <biblio beolid="beolid" exists="true|false">publication</bilio> 
+        
+        Reference to a bibliographical entry in the beol bibliography.
+    
+        Attributes:
+         - "exists": indicates if referenced person already exists in the beol bibliography.
+         - "beolid": beolid of the referenced person, if existing in the beol bibliography.
+    
+    -->
+    
+    <xs:complexType mixed="true" name="biblio_element">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="title" type="title_element"></xs:element>
+        </xs:choice>
+        <xs:attribute name="exists" type="exists_attribute" use="required"/>
+        <xs:attribute name="beolid" type="beolid_attribute" use="optional"/>
+    </xs:complexType>
+    
+    <!-- 
+    
+        <title>Booktitle</title>
+    
+        Represents the title of a publication.
+    
+    -->
+    
+    <xs:complexType name="title_element" mixed="true"/>
+    
+    <!-- 
+    
+        <em>important text</em>
+    
+        Represents emphasized text.
+    
+    -->
+    
+    <xs:complexType name="emphasized_element" mixed="true"/>
+    
+    <!--
+
+    <formula notation="TeX">x4</formula>
+
+    Represents a mathematical formula (see http://www.tei-c.org/release/doc/tei-p5-doc/de/html/ref-formula.html).
+
+    Attributes:
+    - "notation": indicates the format in which the fomula is written.
+    At the moment, only TeX is supported. It has to be MathJax compliant
+    which means that only the math parts of LaTeX may be used, not the text parts.
+
+    -->
+    
+    <xs:simpleType name="notation_attribute">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TeX"/> <!-- formula written in TeX -->
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="formula_element" mixed="true">
+        <xs:attribute name="notation" type="notation_attribute" use="required"/>
+    </xs:complexType>
+    
+</xs:schema>
