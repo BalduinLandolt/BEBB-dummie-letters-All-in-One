@@ -36,7 +36,7 @@ def read_mc(sys_no):
         res = conn.search(query)
         data = bytes(res[0].data)
     except zoom.ConnectionError:
-        print("could not connect to aleph.")
+        print("\n!!! Error: could not connect to aleph !!!\n")
         return
 
     print(data)
