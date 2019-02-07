@@ -1,7 +1,9 @@
 import os
 
+
 force_all = False
 is_test = False
+
 
 def get_used_sys_nos(force, test):
     print("Getting System Numbers in Use...")
@@ -11,7 +13,7 @@ def get_used_sys_nos(force, test):
     is_test = test
 
     all_numbers = get_all_sys_nos()
-    used_numbers = get_used_sys_nos()
+    used_numbers = get_used_sys_no_list()
     """Do Stuff here"""
 
     print("Done getting Sys. Numbers.\n")
@@ -28,7 +30,7 @@ def get_all_sys_nos():
     return res
 
 
-def get_used_sys_nos():
+def get_used_sys_no_list():
     print("loading 'used numbers'...")
 
     used_nos = []
@@ -70,15 +72,19 @@ def grab_used_nos():
 
     print("handled all files in folder.")
     """
+    res = []
+    return res
 
 
 def read_used_nos():
     """
 
     """
+    res = []
+    return res
 
 
-def write_used_nos():
+def write_used_nos(list):
     """
 
     """
