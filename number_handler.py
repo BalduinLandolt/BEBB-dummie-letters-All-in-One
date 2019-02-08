@@ -41,7 +41,6 @@ def get_used_sys_no_list():
         print("force or test run.")
         used_nos = grab_used_nos()
         write_used_nos(used_nos)
-        exit(-1)
     else:
         if os.path.isfile("./data/tmp/existing_numbers.txt"):
             print("File 'existing_numbers.txt' already exists. Loading list from cache instead.")
@@ -80,7 +79,7 @@ def grab_used_nos():
 
 
 def get_by_name(name):
-    print("trying to load data by name: "+name)
+    # print("trying to load data by name: "+name)
     prefix = "data/input/xml/"
     res = ""
     try:
@@ -89,7 +88,7 @@ def get_by_name(name):
         res = root.get("catalogue_id")
         # print(res)
         # print("got file by name.\n")
-        print("Got System Number: {}".format(res))
+        # print("Got System Number: {}".format(res))
     except OSError:
         print("Could not read File: " + name + "\n")
     return res
@@ -97,26 +96,16 @@ def get_by_name(name):
 
 def read_used_nos():
     print("Reading used System Numbers from File...")
-
-    # TODO implement this
-
-    """
-
-    """
-    res = []
+    with open("data/tmp/existing_numbers.txt", "r") as f:
+        res = f.readlines()
     return res
 
 
 def write_used_nos(used_nos):
     print("Writing used System Numbers to File...")
+    with open("data/tmp/existing_numbers.txt", "w") as f:
+        for l in used_nos:
+            f.write(l + "\n")
 
-    # TODO implement this
-
-    """
-
-    """
-    """
-    with open("input/existing_numbers.txt", "w") as out_file:
-        print(res, file=out_file)
-    """
+    # TODO does that turn out utf-8?
 
