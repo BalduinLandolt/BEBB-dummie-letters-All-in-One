@@ -1,5 +1,6 @@
 from pymarc import MARCReader
 from PyZ3950 import zoom
+import os
 
 
 force_all = False
@@ -18,7 +19,6 @@ def get_info_from_aleph(nos, force, test):
     global no_list
     no_list = nos
 
-    # TODO Do Stuff here
     res = []
 
     if is_test:
@@ -27,16 +27,38 @@ def get_info_from_aleph(nos, force, test):
         for no in no_list:
             res.append(get_marc(no))
 
-
     print("Done getting Meta Info.\n")
     return res
 
 
 def get_marc(no):
-    print("Reading cached marc data...")
+    print("getting marc for: {}".format(no))
+
+    if force_all:
+        mc = read_mc(no)
+        write_to_cache(mc, no)
+        return mc
+
+    if os.path.isfile("data/tmp/marc/" + no + ".marc"):
+        return read_mc_from_cache(no)
+
+    mc = read_mc(no)
+    write_to_cache(mc, no)
+    return mc
 
 
-     # TODO implement this
+def read_mc_from_cache(no):
+    with open("data/tmp/marc/" + no + ".marc", "rb") as f:
+        data = f.read()
+    reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
+    tmp = next(reader)
+    return tmp
+
+
+def write_to_cache(marc, no):
+    with open("data/tmp/marc/" + no + ".marc", "wb") as f:
+        data = bytearray(marc.data)
+        f.write(data)
 
 
 def test_mc():
@@ -45,6 +67,7 @@ def test_mc():
     print("Testing: {}".format(no))
     mc = read_mc(no)
     print(mc)
+    write_to_cache(mc, no)
     print("date: {}".format(get_date(mc)))
     return mc
 
