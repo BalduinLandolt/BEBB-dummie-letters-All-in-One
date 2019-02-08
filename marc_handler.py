@@ -1,6 +1,5 @@
 from pymarc import MARCReader
 from PyZ3950 import zoom
-import random
 
 
 force_all = False
@@ -8,7 +7,7 @@ is_test = False
 no_list = []
 
 
-def get_info_from_aleph(list, force, test):
+def get_info_from_aleph(nos, force, test):
     print("Getting Meta Information from Aleph Catalogue...")
     print("Is Force Run: {}".format(force))
     global force_all
@@ -17,10 +16,9 @@ def get_info_from_aleph(list, force, test):
     global is_test
     is_test = test
     global no_list
-    no_list = list
+    no_list = nos
 
     # TODO Do Stuff here
-    test_mc()
 
     if is_test:
         res = test_mc()
@@ -45,8 +43,12 @@ def add_marcs_to_list(prev):
 
 
 def test_mc():
-    no = "000054744"
-    read_mc(no)
+    import random
+    no = no_list[random.randint(0, len(no_list)-1)]
+    print("Testing: {}".format(no))
+    mc = read_mc(no)
+    print(mc)
+    print("date: {}".format(get_date(mc)))
 
 
 def read_mc(sys_no):
@@ -64,13 +66,8 @@ def read_mc(sys_no):
         print("\n!!! Error: could not connect to aleph !!!\n")
         return
 
-    print(data)
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
-    print(reader)
     tmp = next(reader)
-    print(tmp)
-    print("date:")
-    print(get_date(tmp))
     return tmp
 
 
