@@ -19,26 +19,23 @@ def get_info_from_aleph(nos, force, test):
     no_list = nos
 
     # TODO Do Stuff here
+    res = []
 
     if is_test:
-        res = test_mc()
-    elif force_all:
-        res = add_marcs_to_list([])
+        res.append(test_mc())
     else:
-        cached = read_cached_marcs()
-        res = add_marcs_to_list(cached)
+        for no in no_list:
+            res.append(get_marc(no))
+
 
     print("Done getting Meta Info.\n")
     return res
 
 
-def read_cached_marcs():
+def get_marc(no):
     print("Reading cached marc data...")
-     # TODO implement this
 
 
-def add_marcs_to_list(prev):
-    print("Getting new marc data...")
      # TODO implement this
 
 
