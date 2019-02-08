@@ -50,6 +50,7 @@ def read_mc_from_cache(no):
         data = f.read()
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
     tmp = next(reader)
+    print("loaded data from cache.")
     return tmp
 
 
@@ -88,6 +89,7 @@ def read_mc(sys_no):
 
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
     tmp = next(reader)
+    print("loaded data from aleph.")
     return tmp
 
 
