@@ -1,17 +1,21 @@
 from pymarc import MARCReader
 from PyZ3950 import zoom
 
+
 force_all = False
 is_test = False
 
-def get_info_from_aleph(force, test):
+
+def get_info_from_aleph(no_list, force, test):
     print("Getting Meta Information from Aleph Catalogue...")
     print("Is Force Run: {}".format(force))
+    global force_all
     force_all = force
     print("Is Test Run: {}".format(test))
+    global is_test
     is_test = test
 
-    """Do Stuff here"""
+    # TODO Do Stuff here
     test_mc()
 
     print("Done getting Meta Info.\n")
@@ -21,7 +25,7 @@ def test_mc():
     no = "000054744"
     read_mc(no)
     import random
-    print(random.randint(0,100))
+    print(random.randint(0, 100))
 
 
 def read_mc(sys_no):
@@ -55,4 +59,3 @@ def get_date(records):
         date = field['c']
 
     return date
-
