@@ -1,16 +1,16 @@
 import os
 from lxml import etree
+import random
 
-
-force_all = False
-is_test = False
 
 
 def get_used_sys_nos(force, test):
     print("Getting System Numbers in Use...")
     print("Is Force Run: {}".format(force))
+    global force_all
     force_all = force
     print("Is Test Run: {}".format(test))
+    global is_test
     is_test = test
 
     all_numbers = get_all_sys_nos()
@@ -59,6 +59,14 @@ def grab_used_nos():
     files = os.listdir("data/input/xml")
     print("found:")
     print(files)
+
+    if is_test:
+        tmp = []
+        for i in range(5):
+            tmp.append(files.pop(random.randint(0,len(files))))
+        files = tmp
+        print("Reduced List for test purposes: {}".format(files))
+
     print("")
     res = []
     for file in files:
