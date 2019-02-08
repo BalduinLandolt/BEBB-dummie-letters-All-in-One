@@ -23,11 +23,11 @@ The first three can be installed via pip. (Use Pycharm Modules or type in the co
 
 PyZ3950 is a bit annoying...
 
-[more comming soon...]
+[To do]
 
 It's easiest to have a virtual environment up and running, with all these thing in it.
 
-###Data Requirements
+### Data Requirements
 
 [To do]
 
