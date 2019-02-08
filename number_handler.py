@@ -126,4 +126,6 @@ def get_list_of_numbers_to_work_with(all_nos, used):
         print("For test purposes, list has been shortened from {} to {}.".format(len(res), len(test_res)))
         return test_res
 
+    # TODO should this be written to file and loaded in normal run?
+
     return res

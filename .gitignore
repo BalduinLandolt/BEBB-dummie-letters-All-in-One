@@ -3,5 +3,7 @@
 venv/*
 *.marc
 
+data/tmp/existing_numbers.txt
+
 !input/xml/test.xml
 !input/xml/test2.xml
