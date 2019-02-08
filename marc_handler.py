@@ -1,12 +1,14 @@
 from pymarc import MARCReader
 from PyZ3950 import zoom
+import random
 
 
 force_all = False
 is_test = False
+no_list = []
 
 
-def get_info_from_aleph(no_list, force, test):
+def get_info_from_aleph(list, force, test):
     print("Getting Meta Information from Aleph Catalogue...")
     print("Is Force Run: {}".format(force))
     global force_all
@@ -14,18 +16,37 @@ def get_info_from_aleph(no_list, force, test):
     print("Is Test Run: {}".format(test))
     global is_test
     is_test = test
+    global no_list
+    no_list = list
 
     # TODO Do Stuff here
     test_mc()
 
+    if is_test:
+        res = test_mc()
+    elif force_all:
+        res = add_marcs_to_list([])
+    else:
+        cached = read_cached_marcs()
+        res = add_marcs_to_list(cached)
+
     print("Done getting Meta Info.\n")
+    return res
+
+
+def read_cached_marcs():
+    print("Reading cached marc data...")
+     # TODO implement this
+
+
+def add_marcs_to_list(prev):
+    print("Getting new marc data...")
+     # TODO implement this
 
 
 def test_mc():
     no = "000054744"
     read_mc(no)
-    import random
-    print(random.randint(0, 100))
 
 
 def read_mc(sys_no):
