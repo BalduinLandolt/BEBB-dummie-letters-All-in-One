@@ -65,7 +65,7 @@ def grab_used_nos():
     if is_test:
         tmp = []
         for i in range(5):
-            tmp.append(files.pop(random.randint(0, len(files))))
+            tmp.append(files.pop(random.randint(0, len(files)-1)))
         files = tmp
         print("Reduced List for test purposes to {} files: {}".format(len(files), files))
 
@@ -122,7 +122,7 @@ def get_list_of_numbers_to_work_with(all_nos, used):
     if is_test:
         test_res = []
         for i in range(5):
-            test_res.append(res[random.randint(0, len(res))])
+            test_res.append(res[random.randint(0, len(res)-1)])
         print("For test purposes, list has been shortened from {} to {}.".format(len(res), len(test_res)))
         return test_res
 
