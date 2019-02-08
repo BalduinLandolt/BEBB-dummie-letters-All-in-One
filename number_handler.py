@@ -28,11 +28,19 @@ def get_sys_nos_to_work_with(force, test):
     return list_for_dummies
 
 
+def crop_list(lst):
+    out = []
+    for l in lst:
+        out.append(l.strip())
+    return out
+
+
 def get_all_sys_nos():
     print("loading 'all numbers'...")
     with open("data/input/all_numbers.txt") as f:
         res = f.readlines()
     print("found numbers: " + str(len(res)))
+    res = crop_list(res)
     print(res)
     return res
 
@@ -52,6 +60,7 @@ def get_used_sys_no_list():
             used_nos = grab_used_nos()
             write_used_nos(used_nos)
 
+    used_nos = crop_list(used_nos)
     print("Got Already Used System Numbers now.")
     print(used_nos)
 
@@ -128,4 +137,5 @@ def get_list_of_numbers_to_work_with(all_nos, used):
 
     # TODO should this be written to file and loaded in normal run?
 
+    res = crop_list(res)
     return res

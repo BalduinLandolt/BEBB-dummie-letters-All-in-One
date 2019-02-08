@@ -36,14 +36,12 @@ def get_marc(no):
 
     if force_all:
         mc = read_mc(no)
-        write_to_cache(mc, no)
         return mc
 
     if os.path.isfile("data/tmp/marc/" + no + ".marc"):
         return read_mc_from_cache(no)
 
     mc = read_mc(no)
-    write_to_cache(mc, no)
     return mc
 
 
@@ -56,9 +54,9 @@ def read_mc_from_cache(no):
 
 
 def write_to_cache(marc, no):
-    with open("data/tmp/marc/" + no + ".marc", "wb") as f:
-        data = bytearray(marc.data)
-        f.write(data)
+    if force_all or is_test or not os.path.isfile("data/tmp/marc/" + no + ".marc"):
+        with open("data/tmp/marc/" + no + ".marc", "wb") as f:
+            f.write(marc)
 
 
 def test_mc():
@@ -67,7 +65,6 @@ def test_mc():
     print("Testing: {}".format(no))
     mc = read_mc(no)
     print(mc)
-    write_to_cache(mc, no)
     print("date: {}".format(get_date(mc)))
     return mc
 
@@ -86,6 +83,8 @@ def read_mc(sys_no):
     except zoom.ConnectionError:
         print("\n!!! Error: could not connect to aleph !!!\n")
         return
+
+    write_to_cache(data, sys_no)
 
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
     tmp = next(reader)
