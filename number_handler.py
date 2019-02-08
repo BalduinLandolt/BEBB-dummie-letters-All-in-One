@@ -3,7 +3,6 @@ from lxml import etree
 import random
 
 
-
 def get_used_sys_nos(force, test):
     print("Getting System Numbers in Use...")
     print("Is Force Run: {}".format(force))
@@ -15,7 +14,8 @@ def get_used_sys_nos(force, test):
 
     all_numbers = get_all_sys_nos()
     used_numbers = get_used_sys_no_list()
-    """Do Stuff here"""
+
+    # TODO Do Stuff here
 
     print("Done getting Sys. Numbers.\n")
     return
@@ -23,7 +23,6 @@ def get_used_sys_nos(force, test):
 
 def get_all_sys_nos():
     print("loading 'all numbers'...")
-    res = []
     with open("data/input/all_numbers.txt") as f:
         res = f.readlines()
     print("found numbers: " + str(len(res)))
@@ -33,8 +32,6 @@ def get_all_sys_nos():
 
 def get_used_sys_no_list():
     print("loading 'used numbers'...")
-
-    used_nos = []
 
     if force_all:
         used_nos = grab_used_nos()
@@ -54,49 +51,41 @@ def get_used_sys_no_list():
 
 
 def grab_used_nos():
-    # TODO implement this
-
     files = os.listdir("data/input/xml")
-    print("found:")
-    print(files)
+    print("found {} files: {}".format(len(files), files))
 
     if is_test:
         tmp = []
         for i in range(5):
-            tmp.append(files.pop(random.randint(0,len(files))))
+            tmp.append(files.pop(random.randint(0, len(files))))
         files = tmp
-        print("Reduced List for test purposes: {}".format(files))
+        print("Reduced List for test purposes to {} files: {}".format(len(files), files))
 
     print("")
     res = []
-    for file in files:
-        print(file)
-        sys_no = get_by_name(file)
+    for f in files:
+        print(f)
+        sys_no = get_by_name(f)
         res.append(sys_no)
 
     print("Result: ")
     print(res)
-    """with open("input/existing_numbers.txt", "w") as out_file:
-        print(res, file=out_file)
-
-    print("handled all files in folder.")"""
-
     return res
 
 
 def get_by_name(name):
     print("trying to load data by name ("+name+")...")
     prefix = "data/input/xml/"
-    sysNo = ""
+    res = ""
     try:
         root = etree.parse(prefix + name, etree.XMLParser(load_dtd=True)).getroot()
         print(etree.tostring(root))
-        sysNo = root.get("catalogue_id")
-        print(sysNo)
+        res = root.get("catalogue_id")
+        print(res)
         print("got file by name.\n")
     except OSError:
         print("Could not read File: " + name + "\n")
-    return sysNo
+    return res
 
 
 def read_used_nos():
@@ -109,9 +98,14 @@ def read_used_nos():
     return res
 
 
-def write_used_nos(list):
+def write_used_nos(used_nos):
     # TODO implement this
 
     """
 
     """
+    """
+    with open("input/existing_numbers.txt", "w") as out_file:
+        print(res, file=out_file)
+    """
+
