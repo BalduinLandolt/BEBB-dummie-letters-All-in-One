@@ -49,6 +49,7 @@ def test_mc():
     mc = read_mc(no)
     print(mc)
     print("date: {}".format(get_date(mc)))
+    return mc
 
 
 def read_mc(sys_no):
