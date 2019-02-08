@@ -20,6 +20,8 @@ def get_sys_nos_to_work_with(force, test):
     used_numbers = get_used_sys_no_list()
     list_for_dummies = get_list_of_numbers_to_work_with(all_numbers, used_numbers)
 
+    print("Got a List to work with: {}".format(list_for_dummies))
+
     # TODO Do Stuff here
 
     print("Done getting Sys. Numbers.\n")
@@ -111,6 +113,17 @@ def write_used_nos(used_nos):
     # TODO does that turn out utf-8?
 
 
-def get_list_of_numbers_to_work_with(all, used):
-    print
-    #
+def get_list_of_numbers_to_work_with(all_nos, used):
+    res = []
+    for no in all_nos:
+        if no not in used:
+            res.append(no)
+
+    if is_test:
+        test_res = []
+        for i in range(5):
+            test_res.append(res[random.randint(0, len(res))])
+        print("For test purposes, list has been shortened from {} to {}.".format(len(res), len(test_res)))
+        return test_res
+
+    return res
