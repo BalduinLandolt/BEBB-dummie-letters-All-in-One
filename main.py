@@ -38,7 +38,7 @@ import number_handler
 import marc_handler
 import dummie_writer
 
-number_handler.get_used_sys_nos(force_all, is_test)
+number_list = number_handler.get_sys_nos_to_work_with(force_all, is_test)
 
 marc_handler.get_info_from_aleph(force_all, is_test)
 

@@ -7,7 +7,7 @@ force_all = False
 is_test = False
 
 
-def get_used_sys_nos(force, test):
+def get_sys_nos_to_work_with(force, test):
     print("Getting System Numbers in Use...")
     print("Is Force Run: {}".format(force))
     global force_all
@@ -18,11 +18,12 @@ def get_used_sys_nos(force, test):
 
     all_numbers = get_all_sys_nos()
     used_numbers = get_used_sys_no_list()
+    list_for_dummies = get_list_of_numbers_to_work_with(all_numbers, used_numbers)
 
     # TODO Do Stuff here
 
     print("Done getting Sys. Numbers.\n")
-    return
+    return list_for_dummies
 
 
 def get_all_sys_nos():
@@ -109,3 +110,7 @@ def write_used_nos(used_nos):
 
     # TODO does that turn out utf-8?
 
+
+def get_list_of_numbers_to_work_with(all, used):
+    print
+    #
