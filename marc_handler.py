@@ -65,8 +65,25 @@ def test_mc():
     no = no_list[random.randint(0, len(no_list)-1)]
     print("Testing: {}".format(no))
     mc = read_mc(no)
+    print("Marc Data:")
     print(mc)
-    print("date: {}".format(get_date(mc)))
+    print("Test Data:")
+    print("date: {}".format(unicode(get_date(mc))))
+    print("author: {}".format(unicode(get_author(mc))))
+    print("recipient: {}".format(unicode(get_recipient(mc))))
+    print("work reference: {}".format(unicode(get_bernoulli_work_reference(mc))))
+    print("content info: {}".format(unicode(get_content_info(mc))))
+    print("acc. material: {}".format(unicode(get_accompanying_material(mc))))
+    print("bibl. info: {}".format(unicode(get_bibliographical_info(mc))))
+    print("creation form: {}".format(unicode(get_creation_form(mc))))
+    print("creation place: {}".format(unicode(get_creation_place(mc))))
+    print("description: {}".format(unicode(get_description(mc))))
+    print("e-manuscripta link: {}".format(unicode(get_emanuscript_link(mc))))
+    print("footnote: {}".format(unicode(get_footnote(mc))))
+    print("language: {}".format(unicode(get_language(mc))))
+    print("mentioned persons: {}".format(unicode(get_mentioned_persons(mc))))
+    print("phys. description: {}".format(unicode(get_physical_description(mc))))
+    print("reproduction info: {}".format(unicode(get_reproduction_info(mc))))
     return mc
 
 
