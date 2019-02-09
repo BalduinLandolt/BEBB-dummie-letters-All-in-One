@@ -1,6 +1,9 @@
+import os, marc_handler
+
 force_all = False
 is_test = False
 marc_data_list = []
+
 
 def write_dummies(data_list, force, test):
     print("Writing Dummie XML Files to Output...")
@@ -15,13 +18,28 @@ def write_dummies(data_list, force, test):
     marc_data_list = data_list
 
     if is_test:
-        write_dummy(marc_data_list[0])
+        try_to_write_dummy(marc_data_list[0])
     else:
         for d in marc_data_list:
-            write_dummy(d)
+            try_to_write_dummy(d)
 
     print("Done writing Dummies.\n")
 
 
-def write_dummy(data_set):
-    """"""
+def try_to_write_dummy(data_set):
+    name = generate_name(data_set)
+    if not force_all:
+        if os.path.isfile("data/output/xml/" + name + ".xml"):
+            print("File already exists: {}".format(name))
+            return
+    write_dummy(name, data_set)
+
+
+def write_dummy(name, data_set):
+    # TODO implement
+    return
+
+
+def generate_name(data_set):
+    # TODO implement
+    return ""
