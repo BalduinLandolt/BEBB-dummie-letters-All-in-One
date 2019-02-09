@@ -42,6 +42,6 @@ number_list = number_handler.get_sys_nos_to_work_with(force_all, is_test)
 
 marc_data = marc_handler.get_info_from_aleph(number_list, force_all, is_test)
 
-dummie_writer.write_dummies(force_all, is_test) # TODO add marc data
+dummie_writer.write_dummies(marc_data, force_all, is_test)
 
 print("Done.")
