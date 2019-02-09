@@ -67,6 +67,43 @@ def test_mc():
     mc = read_mc(no)
     print("Marc Data:")
     print(mc)
+    """
+    print("Test Data:")
+    print("date: {}".format(get_date(mc).encode('utf-8')))
+    print("author: {}".format(get_author(mc).encode('utf-8')))
+    print("recipient: {}".format(get_recipient(mc).encode('utf-8')))
+    print("work reference: {}".format(get_bernoulli_work_reference(mc).encode('utf-8')))
+    print("content info: {}".format(get_content_info(mc).encode('utf-8')))
+    print("acc. material: {}".format(get_accompanying_material(mc).encode('utf-8')))
+    print("bibl. info: {}".format(get_bibliographical_info(mc).encode('utf-8')))
+    print("creation form: {}".format(get_creation_form(mc).encode('utf-8')))
+    print("creation place: {}".format(get_creation_place(mc).encode('utf-8')))
+    print("description: {}".format(get_description(mc).encode('utf-8')))
+    print("e-manuscripta link: {}".format(get_emanuscript_link(mc).encode('utf-8')))
+    print("footnote: {}".format(get_footnote(mc).encode('utf-8')))
+    print("language: {}".format(get_language(mc).encode('utf-8')))
+    print("mentioned persons: {}".format(get_mentioned_persons(mc).encode('utf-8')))
+    print("phys. description: {}".format(get_physical_description(mc).encode('utf-8')))
+    print("reproduction info: {}".format(get_reproduction_info(mc).encode('utf-8')))
+    """
+    print("Test Data:")
+    print("date: {}".format(get_date(mc)))
+    print("author: {}".format(get_author(mc)))
+    print("recipient: {}".format(get_recipient(mc)))
+    print("work reference: {}".format(get_bernoulli_work_reference(mc)))
+    print("content info: {}".format(get_content_info(mc)))
+    print("acc. material: {}".format(get_accompanying_material(mc)))
+    print("bibl. info: {}".format(get_bibliographical_info(mc)))
+    print("creation form: {}".format(get_creation_form(mc)))
+    print("creation place: {}".format(get_creation_place(mc)))
+    print("description: {}".format(get_description(mc)))
+    print("e-manuscripta link: {}".format(get_emanuscript_link(mc)))
+    print("footnote: {}".format(get_footnote(mc)))
+    print("language: {}".format(get_language(mc)))
+    print("mentioned persons: {}".format(get_mentioned_persons(mc)))
+    print("phys. description: {}".format(get_physical_description(mc)))
+    print("reproduction info: {}".format(get_reproduction_info(mc)))
+    """
     print("Test Data:")
     print("date: {}".format(unicode(get_date(mc))))
     print("author: {}".format(unicode(get_author(mc))))
@@ -83,7 +120,7 @@ def test_mc():
     print("language: {}".format(unicode(get_language(mc))))
     print("mentioned persons: {}".format(unicode(get_mentioned_persons(mc))))
     print("phys. description: {}".format(unicode(get_physical_description(mc))))
-    print("reproduction info: {}".format(unicode(get_reproduction_info(mc))))
+    print("reproduction info: {}".format(unicode(get_reproduction_info(mc))))"""
     return mc
 
 
@@ -119,7 +156,7 @@ https://git.iml.unibas.ch/salsah-suite/api_import_scripts/blob/master/BEOL/BEBB/
 def get_date(records):
     date = None
     for field in records.get_fields('046'):
-        date = field['c']
+        date = field['c'].encode('utf-8')
 
     return date
 
@@ -143,10 +180,10 @@ def __check_for_gnd(marcField, GNDIndex):
         role = marcField['4']
 
     return {
-        "GND": GND,
-        "name": marcField['a'],
-        "date": date,
-        "role": role
+        "GND": GND.encode('utf-8'),
+        "name": marcField['a'].encode('utf-8'),
+        "date": date.encode('utf-8'),
+        "role": role.encode('utf-8')
     }
 
 def get_author(records):
@@ -185,17 +222,17 @@ def get_description(records):
     for field in records.get_fields('245'):
         if 'a' in field:
             description = {
-                'title': field['a']
+                'title': field['a'].encode('utf-8')
             }
 
         if 'c' in field:
             if description is not None:
                 description.update({
-                    'author': field['c']
+                    'author': field['c'].encode('utf-8')
                 })
             else:
                 description = {
-                    'author': field['c']
+                    'author': field['c'].encode('utf-8')
                 }
 
     return description
@@ -204,7 +241,7 @@ def get_creation_form(records):
     creation_information = None
     for field in records.get_fields('250'):
         if 'a' in field:
-            creation_information = field['a']
+            creation_information = field['a'].encode('utf-8')
 
     return creation_information
 
@@ -213,16 +250,16 @@ def get_creation_place(records):
     for field in records.get_fields('751'):
         if 'a' in field:
             creation_place = {
-                'place': field['a']
+                'place': field['a'].encode('utf-8')
             }
         if '0' in field:
             if creation_place is not None:
                 creation_place.update({
-                    'gnd': field['0']
+                    'gnd': field['0'].encode('utf-8')
                 })
             else:
                 creation_place = {
-                    'gnd': field['0']
+                    'gnd': field['0'].encode('utf-8')
                 }
 
 
@@ -233,17 +270,17 @@ def get_physical_description(records):
     for field in records.get_fields('300'):
         if 'a' in field:
             physical_description = {
-                'amount': field['a']
+                'amount': field['a'].encode('utf-8')
             }
 
         if 'c' in field:
             if physical_description is not None:
                 physical_description.update({
-                    'format': field['c']
+                    'format': field['c'].encode('utf-8')
                 })
             else:
                 physical_description = {
-                    'format': field['c']
+                    'format': field['c'].encode('utf-8')
                 }
 
     return physical_description
@@ -252,7 +289,7 @@ def get_footnote(records):
     footnote = None
     for field in records.get_fields('500'):
         if 'a' in field:
-            footnote = field['a']
+            footnote = field['a'].encode('utf-8')
 
     return footnote
 
@@ -261,17 +298,17 @@ def get_bibliographical_info(records):
     for field in records.get_fields('510'):
         if 'a' in field:
             bibliographical_info = {
-                'reference': field['a']
+                'reference': field['a'].encode('utf-8')
             }
 
         if 'i' in field:
             if bibliographical_info is not None:
                 bibliographical_info.update({
-                    'type': field['i']
+                    'type': field['i'].encode('utf-8')
                 })
             else:
                 bibliographical_info = {
-                    'type': field['i']
+                    'type': field['i'].encode('utf-8')
                 }
 
     return bibliographical_info
@@ -280,7 +317,7 @@ def get_content_info(records):
     content_info = None
     for field in records.get_fields('520'):
         if 'a' in field:
-            content_info = field['a']
+            content_info = field['a'].encode('utf-8')
 
     return content_info
 
@@ -297,47 +334,47 @@ def get_reproduction_info(records):
     for field in records.get_fields('533'):
         if 'a' in field:
             reproduction_info = {
-                'type': field['a']
+                'type': field['a'].encode('utf-8')
             }
 
         if 'b' in field:
             if reproduction_info is not None:
                 reproduction_info.update({
-                    'place': field['b']
+                    'place': field['b'].encode('utf-8')
                 })
             else:
                 reproduction_info = {
-                    'place': field['b']
+                    'place': field['b'].encode('utf-8')
                 }
 
         if 'c' in field:
             if reproduction_info is not None:
                 reproduction_info.update({
-                    'institution': field['c']
+                    'institution': field['c'].encode('utf-8')
                 })
             else:
                 reproduction_info = {
-                    'institution': field['c']
+                    'institution': field['c'].encode('utf-8')
                 }
 
         if 'd' in field:
             if reproduction_info is not None:
                 reproduction_info.update({
-                    'year': field['d']
+                    'year': field['d'].encode('utf-8')
                 })
             else:
                 reproduction_info = {
-                    'year': field['d']
+                    'year': field['d'].encode('utf-8')
                 }
 
         if 'n' in field:
             if reproduction_info is not None:
                 reproduction_info.update({
-                    'additional': field['n']
+                    'additional': field['n'].encode('utf-8')
                 })
             else:
                 reproduction_info = {
-                    'additional': field['n']
+                    'additional': field['n'].encode('utf-8')
                 }
 
     return reproduction_info
@@ -346,7 +383,7 @@ def get_language(records):
     language = None
     for field in records.get_fields('546'):
         if 'a' in field:
-            language = field['a']
+            language = field['a'].encode('utf-8')
 
     return language
 
