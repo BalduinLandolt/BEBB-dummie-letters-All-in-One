@@ -42,12 +42,24 @@ def write_dummy(name, path, data_set):
 
     # TODO implement
 
+    xml_string = ""
+
+    write_to_file(path, xml_string)
+    return
+
+
+def write_to_file(path, data):
+    if is_test:
+        print("Writing to File...\nData:\n{}".format(data))
+
     print("Done Writing file.")
     return
 
 
 def generate_name(data_set):
     date = mc.get_date(data_set)
+    if date is None:
+        date = "0000-00-00"
     date = date.replace(".", "-")
 
     authors = mc.get_author(data_set)
@@ -57,16 +69,12 @@ def generate_name(data_set):
     author_name = author_name.replace("'", "")
     author_name = author_name.replace(",", "")
 
-    # TODO can there be multiple authors? What are naming conventiones in these cases?
-
     recipients = mc.get_recipient(data_set)
     recipient = recipients[0]
     rec_name = recipient['name']
     rec_name = rec_name.replace(" ", "_")
     rec_name = rec_name.replace("'", "")
     rec_name = rec_name.replace(",", "")
-
-    # TODO dito
 
     res = date + "_" + author_name + "-" + rec_name
     return res
