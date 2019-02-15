@@ -14,7 +14,7 @@ def write_dummies(data_list, force, test):
     print("Is Test Run: {}".format(test))
     global is_test
     is_test = test
-    print("Sets of Data: {}".format(len(data_list)))
+    print("Sets of Data: {}\n".format(len(data_list)))
     global marc_data_list
     marc_data_list = data_list
 
@@ -24,20 +24,25 @@ def write_dummies(data_list, force, test):
         for d in marc_data_list:
             try_to_write_dummy(d)
 
-    print("Done writing Dummies.\n")
+    print("\nDone writing Dummies.\n")
 
 
 def try_to_write_dummy(data_set):
     name = generate_name(data_set)
+    path = "data/output/xml/" + name + ".xml"
     if not force_all:
-        if os.path.isfile("data/output/xml/" + name + ".xml"):
-            print("File already exists: {}".format(name))
+        if os.path.isfile(path):
+            print("File already exists: {}".format(path))
             return
-    write_dummy(name, data_set)
+    write_dummy(name, path, data_set)
 
 
-def write_dummy(name, data_set):
+def write_dummy(name, path, data_set):
+    print("Writing file: {}".format(path))
+
     # TODO implement
+
+    print("Done Writing file.")
     return
 
 
@@ -64,5 +69,4 @@ def generate_name(data_set):
     # TODO dito
 
     res = date + "_" + author_name + "-" + rec_name
-    print(res)
     return res
