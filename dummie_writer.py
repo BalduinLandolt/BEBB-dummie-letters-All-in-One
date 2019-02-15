@@ -1,4 +1,5 @@
-import os, marc_handler
+import os
+import marc_handler as mc
 
 force_all = False
 is_test = False
@@ -41,5 +42,13 @@ def write_dummy(name, data_set):
 
 
 def generate_name(data_set):
+    date = mc.get_date(data_set)
+    date = date.replace(".", "-")
+    authors = mc.get_author(data_set)
+    author = authors[0]
+    # TODO can there be multiple authors? What are naming conventiones in these cases?
+
+    res = date + "_"
+    print(res)
     # TODO implement
-    return ""
+    return res
