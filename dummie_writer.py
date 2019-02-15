@@ -44,11 +44,25 @@ def write_dummy(name, data_set):
 def generate_name(data_set):
     date = mc.get_date(data_set)
     date = date.replace(".", "-")
+
     authors = mc.get_author(data_set)
     author = authors[0]
+    author_name = author['name']
+    author_name = author_name.replace(" ", "_")
+    author_name = author_name.replace("'", "")
+    author_name = author_name.replace(",", "")
+
     # TODO can there be multiple authors? What are naming conventiones in these cases?
 
-    res = date + "_"
+    recipients = mc.get_recipient(data_set)
+    recipient = recipients[0]
+    rec_name = recipient['name']
+    rec_name = rec_name.replace(" ", "_")
+    rec_name = rec_name.replace("'", "")
+    rec_name = rec_name.replace(",", "")
+
+    # TODO dito
+
+    res = date + "_" + author_name + "-" + rec_name
     print(res)
-    # TODO implement
     return res
