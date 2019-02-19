@@ -1,5 +1,6 @@
 import os
 import marc_handler as mc
+import codecs
 
 force_all = False
 is_test = False
@@ -42,7 +43,7 @@ def write_dummy(name, path, data_set):
 
     # TODO implement
 
-    xml_string = ""
+    xml_string = "<test></test>" # TODO actual data
 
     write_to_file(path, xml_string)
     return
@@ -51,6 +52,9 @@ def write_dummy(name, path, data_set):
 def write_to_file(path, data):
     if is_test:
         print("Writing to File...\nData:\n{}".format(data))
+
+    with codecs.open(path, "w", "utf-8") as f:
+        f.write(data)
 
     print("Done Writing file.")
     return
