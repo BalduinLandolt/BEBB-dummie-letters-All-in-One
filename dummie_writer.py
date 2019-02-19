@@ -43,7 +43,11 @@ def write_dummy(name, path, data_set):
 
     # TODO implement
 
-    xml_string = "<test></test>" # TODO actual data
+    xml_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+    xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\""
+    xml_string = xml_string + "        title=\"{}\"".format(name)
+    xml_string = xml_string + "        catalogue_id=\"{}\"".format() # TODO continue
 
     write_to_file(path, xml_string)
     return
