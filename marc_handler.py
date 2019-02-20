@@ -86,6 +86,7 @@ def test_mc():
     print("phys. description: {}".format(get_physical_description(mc).encode('utf-8')))
     print("reproduction info: {}".format(get_reproduction_info(mc).encode('utf-8')))
     """
+    """
     print("Test Data:")
     print("date: {}".format(get_date(mc)))
     print("author: {}".format(get_author(mc)))
@@ -103,6 +104,7 @@ def test_mc():
     print("mentioned persons: {}".format(get_mentioned_persons(mc)))
     print("phys. description: {}".format(get_physical_description(mc)))
     print("reproduction info: {}".format(get_reproduction_info(mc)))
+    """
     """
     print("Test Data:")
     print("date: {}".format(unicode(get_date(mc))))

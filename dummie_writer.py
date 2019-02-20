@@ -39,19 +39,67 @@ def try_to_write_dummy(data_set):
 
 
 def write_dummy(name, path, data_set):
-    print("Writing file: {}".format(path))
+    if is_test:
+        print("Writing file: {}".format(path))
 
-    # TODO implement
-
-    xml_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    xml_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
     xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\"\n"
     xml_string = xml_string + "        title=\"{}\"\n".format(name)
-    xml_string = xml_string + "        catalogue_id=\"{}\"".format(mc.get_system_number(data_set)) # TODO continue
+    xml_string = xml_string + "        catalogue_id=\"{}\"\n".format(mc.get_system_number(data_set))
+    xml_string = xml_string + "        date=\"{}\">\n".format(mc.get_date(data_set))
+    xml_string = xml_string + "   <metadata>\n"
+
+    # TODO ??? Does it need that?
+
+    xml_string = xml_string + "   </metadata>\n"
+    xml_string = xml_string + "   <persons>\n"
+
+    authors = mc.get_author(data_set)
+    xml_string = xml_string + "      <author>\n"
+    xml_string = xml_string + get_person_xml_sting(authors)
+    xml_string = xml_string + "      </author>\n"
+
+    recip = mc.get_recipient(data_set)
+    xml_string = xml_string + "      <recipient>\n"
+    xml_string = xml_string + get_person_xml_sting(recip)
+    xml_string = xml_string + "      </recipient>\n"
+
+    mentioned = mc.get_mentioned_persons(data_set)
+    mentioned_str = get_person_xml_sting(mentioned)
+    if mentioned_str != "":
+        xml_string = xml_string + "      <mentioned>\n"
+        xml_string = xml_string + mentioned_str
+        xml_string = xml_string + "      </mentioned>\n"
+
+    xml_string = xml_string + "   </persons>\n"
+    xml_string = xml_string + "   <text>\n"
+    xml_string = xml_string + "      <p></p>\n"
+    xml_string = xml_string + "   </text>\n"
+    xml_string = xml_string + "</letter>\n"
 
 
     write_to_file(path, xml_string)
     return
+
+
+def get_person_xml_sting(persons_list):
+    if persons_list is None:
+        return ""
+
+    res = ""
+
+    for person in persons_list:
+        if person is None:
+            res = res + "         <person/>\n"
+            continue
+        res = res + "         <person>\n"
+        res = res + "            <gnd>{}</gnd>\n".format(person['GND'])
+        res = res + "            <name>{}</name>\n".format(person['name'])
+        res = res + "            <date>{}</date>\n".format(person['date'])
+        res = res + "         </person>\n"
+
+    return res
 
 
 def write_to_file(path, data):
