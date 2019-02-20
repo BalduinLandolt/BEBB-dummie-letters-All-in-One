@@ -147,6 +147,13 @@ def read_mc(sys_no):
     return tmp
 
 
+def get_system_number(record):
+    field = record.get_fields('035')
+    no = field[0]['a'].encode('utf-8')
+
+    return no
+
+
 """ 
 All the following functions are copied from Tobias' program for getting stuff from the wiki
 https://git.iml.unibas.ch/salsah-suite/api_import_scripts/blob/master/BEOL/BEBB/Z3950_aleph.py

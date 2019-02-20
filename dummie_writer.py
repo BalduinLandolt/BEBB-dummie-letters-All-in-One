@@ -47,7 +47,8 @@ def write_dummy(name, path, data_set):
     xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
     xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\"\n"
     xml_string = xml_string + "        title=\"{}\"\n".format(name)
-    #xml_string = xml_string + "        catalogue_id=\"{}\"".format() # TODO continue
+    xml_string = xml_string + "        catalogue_id=\"{}\"".format(mc.get_system_number(data_set)) # TODO continue
+
 
     write_to_file(path, xml_string)
     return
@@ -66,7 +67,7 @@ def write_to_file(path, data):
 
 def generate_name(data_set):
     # TODO handle unknown recipients
-    # TODO namen encoding stimmt nicht immer: ç und so
+    # TODO namen encoding stimmt nicht immer: c-cedie und so
 
     date = mc.get_date(data_set)
     if date is None:
