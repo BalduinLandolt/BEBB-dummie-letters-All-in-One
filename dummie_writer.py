@@ -55,11 +55,16 @@ def write_dummy(name, path, data_set):
 
 
 def write_to_file(path, data):
+    #data = data.encode('utf-8')
+    #data_u = unicode(data)
+    data_u = data.decode('utf-8')
+    path_u = path.decode('utf-8')
+
     if is_test:
         print("Writing to File...\nData:\n{}".format(data))
 
-    with codecs.open(path, "w", "utf-8") as f:
-        f.write(data)
+    with codecs.open(path_u, "w", "utf-8") as f:
+        f.write(data_u)
 
     print("Done Writing file.")
     return
@@ -67,7 +72,6 @@ def write_to_file(path, data):
 
 def generate_name(data_set):
     # TODO handle unknown recipients
-    # TODO namen encoding stimmt nicht immer: c-cedie und so
 
     date = mc.get_date(data_set)
     if date is None:
@@ -89,4 +93,5 @@ def generate_name(data_set):
     rec_name = rec_name.replace(",", "")
 
     res = date + "_" + author_name + "-" + rec_name
+    #res = res.encode('utf-8')
     return res

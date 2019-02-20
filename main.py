@@ -16,6 +16,7 @@ print("running with ({}) Arguments: {}".format(len(sys.argv), sys.argv))
 
 is_test = False
 force_all = False
+testable = None
 
 if len(sys.argv) > 1:
     arg = sys.argv[1].lower()
@@ -23,10 +24,16 @@ if len(sys.argv) > 1:
     is_test = (arg == "test")
     force_all = (arg == "force")
 
+if len(sys.argv) > 2:
+    testable = sys.argv[2].lower()
+
 print
 
 if is_test:
-    print("##### Test Run #####")
+    if testable is None:
+        print("##### Random Test Run #####")
+    else:
+        print("##### Test Run: {} #####".format(testable))
 elif force_all:
     print("##### Force Complete Run #####")
 else:
@@ -38,7 +45,7 @@ import number_handler
 import marc_handler
 import dummie_writer
 
-number_list = number_handler.get_sys_nos_to_work_with(force_all, is_test)
+number_list = number_handler.get_sys_nos_to_work_with(force_all, is_test, testable)
 
 marc_data = marc_handler.get_info_from_aleph(number_list, force_all, is_test)
 

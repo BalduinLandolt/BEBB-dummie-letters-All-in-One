@@ -5,9 +5,10 @@ import random
 
 force_all = False
 is_test = False
+testable = None
 
 
-def get_sys_nos_to_work_with(force, test):
+def get_sys_nos_to_work_with(force, test, testabl_no):
     print("Getting System Numbers in Use...")
     print("Is Force Run: {}".format(force))
     global force_all
@@ -15,6 +16,8 @@ def get_sys_nos_to_work_with(force, test):
     print("Is Test Run: {}".format(test))
     global is_test
     is_test = test
+    global testable
+    testable = testabl_no
 
     all_numbers = get_all_sys_nos()
     used_numbers = get_used_sys_no_list()
@@ -132,10 +135,14 @@ def get_list_of_numbers_to_work_with(all_nos, used):
 
     if is_test:
         test_res = []
-        for i in range(5):
-            test_res.append(res[random.randint(0, len(res)-1)])
-        print("For test purposes, list has been shortened from {} to {}.".format(len(res), len(test_res)))
-        return test_res
+        if testable is None:
+            for i in range(5):
+                test_res.append(res[random.randint(0, len(res)-1)])
+            print("For test purposes, list has been shortened from {} to {}.".format(len(res), len(test_res)))
+            return test_res
+        else:
+            test_res.append(testable)
+            return test_res
 
     # TODO should this be written to file and loaded in normal run?
 

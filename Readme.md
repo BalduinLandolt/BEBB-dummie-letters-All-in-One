@@ -38,6 +38,7 @@ To run the program, simply run `main.py`.
 Possible running arguments:
 * \[none]
 * test
+* test [System Number]
 * force
 
 Without any arguments, it wil do a __normal run__. This means it means it checks if a list of system numbers to work with, already exists. If not, it will create one, by loading the list of all BEBB system numbers and then ruling out the system numbers that are already in use in the productive wiki (by checking the dump files in `data/input/xml/*.xml`); if the list is already cached, it simply loads the existing list.  
