@@ -21,9 +21,10 @@ Required Python Modules:
 
 The first three can be installed via pip. (Use Pycharm Modules or type in the console \[with admin rights] `pip install lxml` or the other modules respectively.)
 
-PyZ3950 is a bit annoying...
-
-[To do]
+PyZ3950 is a bit harder to install:  
+(see https://github.com/asl2/PyZ3950 and http://www.panix.com/~asl2/software/PyZ3950/)  
+Clone git repository (https://github.com/asl2/PyZ3950) and run `setup.py install` with admin rights (e.g. `sudo python setup.py install` under mac or under windows cmd.exe with admin rights respectively).  
+Make sure you're the python installation, where you want the Z39.50 module to be located; so, if you're using a virtual environment, just typing `python` will not run that. In this case you'll have to specify the path to the python installation (e.g. `C:\path\to\virtual\environment\python.exe setup.py install`).
 
 It's easiest to have a virtual environment up and running, with all these thing in it.
 
@@ -52,5 +53,3 @@ Other than the normal run, the test run will not skip cached files, but overwrit
 
 With the argument `force`, it does a __force everything__ run.  
 This does basically the same as the normal run, but it will simply ignore all cached files. So this should be identical to a normal run, there all cached data has been deleted beforehand.
-
-
