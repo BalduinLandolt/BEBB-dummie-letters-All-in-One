@@ -42,13 +42,16 @@ def write_dummy(name, path, data_set):
     if is_test:
         print("Writing file: {}".format(path))
 
-    xml_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    xml_string = unicode("")
+    xml_string = xml_string + "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
     xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\"\n"
     xml_string = xml_string + "        title=\"{}\"\n".format(name)
     xml_string = xml_string + "        catalogue_id=\"{}\"\n".format(mc.get_system_number(data_set))
     xml_string = xml_string + "        date=\"{}\">\n".format(mc.get_date(data_set))
     xml_string = xml_string + "   <metadata>\n"
+
+    xml_string = xml_string + "      <!-- what comes here?! -->\n"
 
     # TODO ??? Does it need that?
 
@@ -105,14 +108,15 @@ def get_person_xml_sting(persons_list):
 def write_to_file(path, data):
     #data = data.encode('utf-8')
     #data_u = unicode(data)
-    data_u = data.decode('utf-8')
+    #data_u = data.decode('utf-8')
+    data_ascii = data.encode('utf-8')
     path_u = path.decode('utf-8')
 
     if is_test:
-        print("Writing to File...\nData:\n{}".format(data))
+        print("Writing to File...\nData:\n{}".format(data_ascii))
 
     with codecs.open(path_u, "w", "utf-8") as f:
-        f.write(data_u)
+        f.write(data)
 
     print("Done Writing file.")
     return
