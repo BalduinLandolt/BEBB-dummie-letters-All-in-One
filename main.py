@@ -1,5 +1,5 @@
 """
-Run this, to get the whole dummie-process going.
+Run this, to get the whole dummy-process going.
 
 Possible arguments (not case sensitive):
 none: runs a regular run.
@@ -8,9 +8,13 @@ none: runs a regular run.
 "force": runs a force run, that ignores tasks that are done already.
 """
 
-print("Starting...")
-
 import sys
+
+import number_handler
+import marc_handler
+import dummie_writer
+
+print("Starting...")
 
 print("running with ({}) Arguments: {}".format(len(sys.argv), sys.argv))
 
@@ -40,10 +44,6 @@ else:
     print("##### Regular Run #####")
 
 print
-
-import number_handler
-import marc_handler
-import dummie_writer
 
 number_list = number_handler.get_sys_nos_to_work_with(force_all, is_test, testable)
 
