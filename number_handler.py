@@ -61,6 +61,14 @@ def get_sys_nos_to_work_with(force, test, testable_no):
 
 
 def crop_list(lst):
+    """
+    strips all strings in a list.
+
+    Iterates over a list of strings and performs strip() on each one.
+    :param lst: the list of string with potential heading/tailing whitespaces
+    :return: a list with the cropped strings
+    """
+
     out = []
     for l in lst:
         out.append(l.strip())
@@ -68,6 +76,12 @@ def crop_list(lst):
 
 
 def get_all_sys_nos():
+    """
+    reads all system numbers from the file `data/input/all_numbers.txt`
+
+    :return: a list with all system numbers relevant for BEBB
+    """
+
     print("loading 'all numbers'...")
     with open("data/input/all_numbers.txt") as f:
         res = f.readlines()
@@ -78,6 +92,17 @@ def get_all_sys_nos():
 
 
 def get_used_sys_no_list():
+    """
+    gets a list of the system numbers already in use.
+
+    This function returns a list of system numbers already in use.
+    In case of a normal run, if such a list is already cached, it simply returns this list (without checking it),
+    in case of a force or test run, or if none exists in cache, a new list is generated.
+    Generating this list is based on the XML files in `data/input/xml`, so unless all files
+    that exist in BEBB at a given time, are actually in said folder, this list has no way of being exhaustive.
+    :return: a list of the system numbers already in use
+    """
+
     print("loading 'used numbers'...")
 
     if force_all or is_test:
@@ -100,6 +125,15 @@ def get_used_sys_no_list():
 
 
 def grab_used_nos():
+    """
+    This method grabs the used system numbers from the file system.
+
+    This method is called by get_used_sys_no_list() under certain logical conditions.
+    It doesn't do the actual reading of the XML files, but looks for files
+    and calls get_by_name() for each of them.
+    :return: Returns a list of system numbers for each XML file found.
+    """
+
     files = os.listdir("data/input/xml")
     print("found {} files: {}".format(len(files), files))
 
