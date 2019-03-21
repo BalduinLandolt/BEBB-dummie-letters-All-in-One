@@ -18,7 +18,7 @@ is_test = False
 testable = None
 
 
-def get_sys_nos_to_work_with(force, test, testabl_no):
+def get_sys_nos_to_work_with(force, test, testable_no):
     """
     Get a list of system numbers to work with in further steps.
 
@@ -34,8 +34,8 @@ def get_sys_nos_to_work_with(force, test, testabl_no):
     (Everything is done anew; things already done are overwritten.)
     :param test: If true, it is a test run.
     (Either a small random sample of numbers is processed or only one given number is processed
-    - depending on testabl_no.)
-    :param testabl_no: In case of a test run, if this is None, the test run is executed with random system numbers;
+    - depending on testable_no.)
+    :param testable_no: In case of a test run, if this is None, the test run is executed with random system numbers;
     if this is a valid system number, the test run will be executed on the letter specified by the system number.
     :return: Returns a list of system numbers that occur in `all_numbers.txt` but not in the XML files.
     """
@@ -48,15 +48,13 @@ def get_sys_nos_to_work_with(force, test, testabl_no):
     global is_test
     is_test = test
     global testable
-    testable = testabl_no
+    testable = testable_no
 
     all_numbers = get_all_sys_nos()
     used_numbers = get_used_sys_no_list()
     list_for_dummies = get_list_of_numbers_to_work_with(all_numbers, used_numbers)
 
     print("Got a List to work with: {}".format(list_for_dummies))
-
-    # TODO Do Stuff here
 
     print("Done getting Sys. Numbers.\n")
     return list_for_dummies
