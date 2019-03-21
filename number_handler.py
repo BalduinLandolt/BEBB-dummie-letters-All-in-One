@@ -137,15 +137,6 @@ def grab_used_nos():
     files = os.listdir("data/input/xml")
     print("found {} files: {}".format(len(files), files))
 
-    """
-    if is_test:
-        tmp = []
-        for i in range(5):
-            tmp.append(files.pop(random.randint(0, len(files)-1)))
-        files = tmp
-        print("Reduced List for test purposes to {} files: {}".format(len(files), files))
-    """
-
     print("")
     res = []
     for f in files:
