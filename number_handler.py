@@ -1,3 +1,13 @@
+"""
+This Script contains all functions for handling the determination of that system numbers to work with
+
+This script provides a number of functions to handle BEBB system numbers.
+The main notion is to read the list `all_systemnumbers.txt` and to
+extract the system numbers already in use from the XML-files in `data/input/xml`.
+All numbers found in the .txt but not found in any .xml needs to be processed further,
+and eventually have a dummy XML file created.
+"""
+
 import os
 from lxml import etree
 import random
@@ -9,6 +19,27 @@ testable = None
 
 
 def get_sys_nos_to_work_with(force, test, testabl_no):
+    """
+    Get a list of system numbers to work with in further steps.
+
+    This umbrella function is meant to be called from another script
+    - presumably `main.py` - to retrieve a list of system numbers, for which
+    dummy letters are to be created.
+    The actual process of selection is left to the functions called here in;
+    but the core concept is: To get an amount `all numbers` aswell as
+    an amount `numbers in use`, and then to subtract the latter from the fist;
+    this leaves the amount `numbers not yet in use` that is returned.
+
+    :param force: if true, it is executed as a force run.
+    (Everything is done anew; things already done are overwritten.)
+    :param test: If true, it is a test run.
+    (Either a small random sample of numbers is processed or only one given number is processed
+    - depending on testabl_no.)
+    :param testabl_no: In case of a test run, if this is None, the test run is executed with random system numbers;
+    if this is a valid system number, the test run will be executed on the letter specified by the system number.
+    :return: Returns a list of system numbers that occur in `all_numbers.txt` but not in the XML files.
+    """
+
     print("Getting System Numbers in Use...")
     print("Is Force Run: {}".format(force))
     global force_all
