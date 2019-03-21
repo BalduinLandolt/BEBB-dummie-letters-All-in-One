@@ -4,11 +4,11 @@ Run this, to get the whole dummie-process going.
 Possible arguments (not case sensitive):
 none: runs a regular run.
 "test": runs a test run, that just creates a hand full of dummies. Should be fairly quick.
+"test [system number]": runs a test run that checks this particular letter.
 "force": runs a force run, that ignores tasks that are done already.
-
 """
 
-print("Strating...")
+print("Starting...")
 
 import sys
 

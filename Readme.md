@@ -30,7 +30,15 @@ It's easiest to have a virtual environment up and running, with all these thing 
 
 ### Data Requirements
 
-[To do]
+In order to work correctly, the program requires particular set of input data in the correct location. Make sure this is the case before trying to run the program.
+
+When cloning the program from Github, most of the folder structure should already be given: In the same folder as the `.py` files, there needs to be a folder `data`; in there again, a folder `input` is required; that again should contain `Schema_and_DTD` with the schema to validate the `.xml`files in it.
+
+In `data/input` there ought to be a file `all_numbers.txt`, which is __absolutely crucial__, but should be provided by the Github clone. It's a plain text file containing all system numbers of letters relevant to the BEBB Project in the format `000054744`, each number on a new line. (Should be 5423 lines.)
+
+Another folder, `data/input/xml` is not provided by the clone, so __you need to add this folder `xml` in `data/input` manually!__
+
+__In this folder, you need to copy all `.xml` files of all the letters, to wich there are `.xml` files (i.e. from the productive wiki, the non-productive wiki and any future editorial activity).__ No other files should be in this folder. (By March 2019, there were 3213 files; it can by no means be fewer than this at any time in the future.)
 
 ### Run it
 
@@ -39,7 +47,7 @@ To run the program, simply run `main.py`.
 Possible running arguments:
 * \[none]
 * test
-* test [System Number]
+* test \[System Number]
 * force
 
 Without any arguments, it wil do a __normal run__. This means it means it checks if a list of system numbers to work with, already exists. If not, it will create one, by loading the list of all BEBB system numbers and then ruling out the system numbers that are already in use in the productive wiki (by checking the dump files in `data/input/xml/*.xml`); if the list is already cached, it simply loads the existing list.  
@@ -48,7 +56,7 @@ Finally, it will check, which XML files are already found in the output; those, 
 
 With the argument `test`, it does a __test run__, that doesn't deliver much of a result, but on the other hand, should run fairly quickly (meaning just a couple of seconds, not several minutes). This is mostly for testing the functionality of the program.  
 It does mostly the same as the normal run, but just for a very limited number of system numbers.  
-_At some point it would be cool to be able to give an extra argument, how many random system numbers should be run; or extra arguments for specific system numbers to check._  
+_Running `test [System Number]`(e.g. `test 000054744`) will force the program to test for the letter with this specific system number. This can be handy to test certain problematic cases, without leafing it to chance, if the test run encounters a letter that can cause this problem._  
 Other than the normal run, the test run will not skip cached files, but overwrite them.
 
 With the argument `force`, it does a __force everything__ run.  
