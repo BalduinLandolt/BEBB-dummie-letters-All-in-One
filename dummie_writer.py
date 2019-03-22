@@ -11,6 +11,9 @@ force_all = False
 is_test = False
 marc_data_list = []
 
+#TODO handle files that are skipped on first run (must be skipped falsely!)
+#TODO hanlde files that are written on repeated runs (were they skipped before? are they being overwritten?)
+
 
 def write_dummies(data_list, force, test):
     print("Writing Dummie XML Files to Output...")
