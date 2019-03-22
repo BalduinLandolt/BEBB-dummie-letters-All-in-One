@@ -2,7 +2,7 @@
 This Script contains all functions for handling the determination of that system numbers to work with
 
 This script provides a number of functions to handle BEBB system numbers.
-The main notion is to read the list `all_systemnumbers.txt` and to
+The main notion is to read the list `all_numbers.txt` and to
 extract the system numbers already in use from the XML-files in `data/input/xml`.
 All numbers found in the .txt but not found in any .xml needs to be processed further,
 and eventually have a dummy XML file created.

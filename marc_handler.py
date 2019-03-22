@@ -1,3 +1,12 @@
+"""
+This script contains functions to handle MARC data and protocols.
+
+It is used for:
+1) getting data from the HAN catalogue through the Z39.50 protocol.
+2) Handling said data in the MARC21 format.
+3) Extracting textual data from the MARC21 binary data, to be used for the XML output.
+"""
+
 from pymarc import MARCReader
 from PyZ3950 import zoom
 import os
