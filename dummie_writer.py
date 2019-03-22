@@ -1,3 +1,7 @@
+"""
+This script handles creating dummie XML files from the previously loaded data.
+"""
+
 import os
 import marc_handler as mc
 import codecs
@@ -62,7 +66,7 @@ def write_dummy(name, path, data_set):
 
     xml_string = xml_string + "      <!-- what comes here?! -->\n"
 
-    # TODO ??? Does it need that?
+    # TODO Fill in stuff here
 
     xml_string = xml_string + "   </metadata>\n"
     xml_string = xml_string + "   <persons>\n"
@@ -90,7 +94,6 @@ def write_dummy(name, path, data_set):
     xml_string = xml_string + "   </text>\n"
     xml_string = xml_string + "</letter>\n"
 
-
     write_to_file(path, xml_string)
     return
 
@@ -115,9 +118,6 @@ def get_person_xml_sting(persons_list):
 
 
 def write_to_file(path, data):
-    #data = data.encode('utf-8')
-    #data_u = unicode(data)
-    #data_u = data.decode('utf-8')
     data_ascii = data.encode('utf-8')
     path_u = path.decode('utf-8')
 
@@ -154,5 +154,4 @@ def generate_name(data_set):
     rec_name = rec_name.replace(",", "")
 
     res = date + "_" + author_name + "-" + rec_name
-    #res = res.encode('utf-8')
     return res
