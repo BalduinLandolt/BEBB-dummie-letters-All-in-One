@@ -10,6 +10,7 @@ It is used for:
 from pymarc import MARCReader
 from PyZ3950 import zoom
 import os
+import sys
 
 
 force_all = False
@@ -42,10 +43,16 @@ def get_info_from_aleph(nos, force, test):
     if is_test:
         res.append(test_mc())
     else:
+        print("")
+        i = 1
+        max = len(no_list) + 1
         for no in no_list:
+            sys.stdout.write("\r{} of {} ({}%)".format(i, max, (100 * i / max)))
+            sys.stdout.flush()
+            i = i + 1
             res.append(get_marc(no))
 
-    print("Done getting Meta Info.\n")
+    print("\n\nDone getting Meta Info.\n")
     return res
 
 
@@ -58,7 +65,7 @@ def get_marc(no):
     :return: marc record for the system number.
     """
 
-    print("getting marc for: {}".format(no))
+#    print("getting marc for: {}".format(no))
 
     if force_all:
         mc = read_mc(no)
@@ -76,7 +83,7 @@ def __read_mc_from_cache(no):
         data = f.read()
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
     tmp = next(reader)
-    print("loaded data from cache.")
+#    print("loaded data from cache.")
     return tmp
 
 
@@ -111,7 +118,7 @@ def read_mc(sys_no):
     :return: marc binary for said system number.
     """
 
-    print("reading: "+sys_no)
+#    print("reading: "+sys_no)
 
     try:
         conn = zoom.Connection('aleph.unibas.ch', 9909)
@@ -129,7 +136,7 @@ def read_mc(sys_no):
 
     reader = MARCReader(bytes(data), force_utf8=True, to_unicode=True)
     tmp = next(reader)
-    print("loaded data from aleph.")
+#    print("loaded data from aleph.")
     return tmp
 
 

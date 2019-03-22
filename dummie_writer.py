@@ -140,11 +140,14 @@ def generate_name(data_set):
     date = date.replace(".", "-")
 
     authors = mc.get_author(data_set)
-    author = authors[0]
-    author_name = author['name']
-    author_name = author_name.replace(" ", "_")
-    author_name = author_name.replace("'", "")
-    author_name = author_name.replace(",", "")
+    if len(authors) == 0:
+        author_name = "unbekannt"
+    else:
+        author = authors[0]
+        author_name = author['name']
+        author_name = author_name.replace(" ", "_")
+        author_name = author_name.replace("'", "")
+        author_name = author_name.replace(",", "")
 
     recipients = mc.get_recipient(data_set)
     if len(recipients) == 0:

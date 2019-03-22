@@ -55,7 +55,7 @@ def get_sys_nos_to_work_with(force, test, testable_no):
     used_numbers = get_used_sys_no_list()
     list_for_dummies = get_list_of_numbers_to_work_with(all_numbers, used_numbers)
 
-    print("Got a List to work with: {}".format(list_for_dummies))
+#    print("Got a List to work with: {}".format(list_for_dummies))
 
     print("Done getting Sys. Numbers.\n")
     return list_for_dummies
