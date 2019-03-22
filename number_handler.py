@@ -87,7 +87,7 @@ def get_all_sys_nos():
         res = f.readlines()
     print("found numbers: " + str(len(res)))
     res = crop_list(res)
-    print(res)
+#    print(res)
     return res
 
 
@@ -118,8 +118,8 @@ def get_used_sys_no_list():
             __write_used_nos(used_nos)
 
     used_nos = crop_list(used_nos)
-    print("Got Already Used System Numbers now.")
-    print(used_nos)
+    print("Got Already Used System Numbers now.\n")
+#    print(used_nos)
 
     return used_nos
 
@@ -135,17 +135,19 @@ def grab_used_nos():
     """
 
     files = os.listdir("data/input/xml")
-    print("found {} files: {}".format(len(files), files))
+    print("found {} files.".format(len(files)))
+    #print("files: {}".format(files))
 
-    print("")
+    print("\nloading system numbers from files...\n")
     res = []
     for f in files:
         # print(f)
         sys_no = get_by_name(f)
         res.append(sys_no)
 
-    print("Result: ")
-    print(res)
+    print("got {} numbers to work with.".format(len(res)))
+#    print("Result: ")
+#    print(res)
     return res
 
 
