@@ -108,14 +108,14 @@ def get_used_sys_no_list():
     if force_all or is_test:
         print("force or test run.")
         used_nos = grab_used_nos()
-        write_used_nos(used_nos)
+        __write_used_nos(used_nos)
     else:
         if os.path.isfile("./data/tmp/existing_numbers.txt"):
             print("File 'existing_numbers.txt' already exists. Loading list from cache instead.")
-            used_nos = read_used_nos()
+            used_nos = __read_used_nos()
         else:
             used_nos = grab_used_nos()
-            write_used_nos(used_nos)
+            __write_used_nos(used_nos)
 
     used_nos = crop_list(used_nos)
     print("Got Already Used System Numbers now.")
@@ -150,38 +150,46 @@ def grab_used_nos():
 
 
 def get_by_name(name):
-    # print("trying to load data by name: "+name)
+    """
+    Gets system Numbers from XMLs by file name.
+
+    :param name: file name of the xml file.
+    :return: system number of the xml file.
+    """
+
     prefix = "data/input/xml/"
     res = ""
     try:
         root = etree.parse(prefix + name, etree.XMLParser(load_dtd=True)).getroot()
-        # print(etree.tostring(root))
         res = root.get("catalogue_id")
-        # print(res)
-        # print("got file by name.\n")
-        # print("Got System Number: {}".format(res))
     except OSError:
         print("Could not read File: " + name + "\n")
     return res
 
 
-def read_used_nos():
+def __read_used_nos():
     print("Reading used System Numbers from File...")
     with open("data/tmp/existing_numbers.txt", "r") as f:
         res = f.readlines()
     return res
 
 
-def write_used_nos(used_nos):
+def __write_used_nos(used_nos):
     print("Writing used System Numbers to File...")
     with open("data/tmp/existing_numbers.txt", "w") as f:
         for l in used_nos:
             f.write(l + "\n")
 
-    # TODO does that turn out utf-8?
-
 
 def get_list_of_numbers_to_work_with(all_nos, used):
+    """
+    creates a list of all numbers contained in the all- list but not in the used-list
+
+    :param all_nos: list of all relevant system numbers
+    :param used: list of all system numbers already used in the project
+    :return: a list containing all numbers in `all_nos` but not in `used`.
+    """
+
     res = []
     for no in all_nos:
         if no not in used:
@@ -197,8 +205,6 @@ def get_list_of_numbers_to_work_with(all_nos, used):
         else:
             test_res.append(testable)
             return test_res
-
-    # TODO should this be written to file and loaded in normal run?
 
     res = crop_list(res)
     return res
