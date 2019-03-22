@@ -35,20 +35,31 @@ def try_to_write_dummy(data_set):
         if os.path.isfile(path):
             print("File already exists: {}".format(path))
             return
-    write_dummy(name, path, data_set)
+
+    try:
+        write_dummy(name, path, data_set)
+    except Exception as e:
+        print("\n\n\n\n!!!!!!!!!!!!!!!!!!!! Error !!!!!!!!!!!!!!!!!!!!!")
+        print("Error occured in: " + name)
+        print(e)
+        quit(1)
 
 
 def write_dummy(name, path, data_set):
     if is_test:
         print("Writing file: {}".format(path))
 
-    xml_string = unicode("")
+    print(name)
+    name_utf8 = unicode(name, 'utf-8')
+    print(name_utf8)
+
+    xml_string = unicode("", 'utf-8')
     xml_string = xml_string + "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
     xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\"\n"
-    xml_string = xml_string + "        title=\"{}\"\n".format(name)
-    xml_string = xml_string + "        catalogue_id=\"{}\"\n".format(mc.get_system_number(data_set))
-    xml_string = xml_string + "        date=\"{}\">\n".format(mc.get_date(data_set))
+    xml_string = xml_string + "        title=\"" + name_utf8 + "\"\n"
+    xml_string = xml_string + "        catalogue_id=\"" + unicode(mc.get_system_number(data_set), 'utf-8') + "\"\n"
+    xml_string = xml_string + "        date=\"" + unicode(mc.get_date(data_set), 'utf-8') + "\">\n"
     xml_string = xml_string + "   <metadata>\n"
 
     xml_string = xml_string + "      <!-- what comes here?! -->\n"
@@ -65,14 +76,14 @@ def write_dummy(name, path, data_set):
 
     recip = mc.get_recipient(data_set)
     xml_string = xml_string + "      <recipient>\n"
-    xml_string = xml_string + get_person_xml_sting(recip)
+    xml_string = xml_string + unicode(get_person_xml_sting(recip), 'utf-8')
     xml_string = xml_string + "      </recipient>\n"
 
     mentioned = mc.get_mentioned_persons(data_set)
     mentioned_str = get_person_xml_sting(mentioned)
     if mentioned_str != "":
         xml_string = xml_string + "      <mentioned>\n"
-        xml_string = xml_string + mentioned_str
+        xml_string = xml_string + unicode(mentioned_str, 'utf-8')
         xml_string = xml_string + "      </mentioned>\n"
 
     xml_string = xml_string + "   </persons>\n"
