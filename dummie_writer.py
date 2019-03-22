@@ -49,15 +49,11 @@ def write_dummy(name, path, data_set):
     if is_test:
         print("Writing file: {}".format(path))
 
-    print(name)
-    name_utf8 = unicode(name, 'utf-8')
-    print(name_utf8)
-
     xml_string = unicode("", 'utf-8')
     xml_string = xml_string + "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
     xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\"\n"
-    xml_string = xml_string + "        title=\"" + name_utf8 + "\"\n"
+    xml_string = xml_string + "        title=\"" + unicode(name, 'utf-8') + "\"\n"
     xml_string = xml_string + "        catalogue_id=\"" + unicode(mc.get_system_number(data_set), 'utf-8') + "\"\n"
     xml_string = xml_string + "        date=\"" + unicode(mc.get_date(data_set), 'utf-8') + "\">\n"
     xml_string = xml_string + "   <metadata>\n"
@@ -71,7 +67,7 @@ def write_dummy(name, path, data_set):
 
     authors = mc.get_author(data_set)
     xml_string = xml_string + "      <author>\n"
-    xml_string = xml_string + get_person_xml_sting(authors)
+    xml_string = xml_string + unicode(get_person_xml_sting(authors), 'utf-8')
     xml_string = xml_string + "      </author>\n"
 
     recip = mc.get_recipient(data_set)

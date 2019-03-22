@@ -18,6 +18,15 @@ no_list = []
 
 
 def get_info_from_aleph(nos, force, test):
+    """
+    Umbrella method to get a list of data from the aleph catalogue.
+
+    :param nos:
+    :param force:
+    :param test:
+    :return:
+    """
+
     print("Getting Meta Information from Aleph Catalogue...")
     print("Is Force Run: {}".format(force))
     global force_all
