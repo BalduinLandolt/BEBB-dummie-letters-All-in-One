@@ -38,7 +38,7 @@ def try_to_write_dummy(data_set):
     path = "data/output/xml/" + name + ".xml"
     if not force_all:
         if os.path.isfile(path):
-            print("File already exists: {}".format(path))
+            print("File already exists: {}. Skipped sys no: {}".format(path, mc.get_system_number(data_set)))
             return
 
     try:
@@ -55,13 +55,18 @@ def write_dummy(name, path, data_set):
     if is_test:
         print("Writing file: {}".format(path))
 
+    if mc.get_date(data_set) is None:
+        date_str = "0000.00.00"
+    else:
+        date_str = unicode(mc.get_date(data_set), 'utf-8')
+
     xml_string = unicode("", 'utf-8')
     xml_string = xml_string + "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     xml_string = xml_string + "<letter xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
     xml_string = xml_string + "        xsi:noNamespaceSchemaLocation=\"../Schema_and_DTD/letter.xsd\"\n"
     xml_string = xml_string + "        title=\"" + unicode(name, 'utf-8') + "\"\n"
     xml_string = xml_string + "        catalogue_id=\"" + unicode(mc.get_system_number(data_set), 'utf-8') + "\"\n"
-    xml_string = xml_string + "        date=\"" + unicode(mc.get_date(data_set), 'utf-8') + "\">\n"
+    xml_string = xml_string + "        date=\"" + date_str + "\">\n"
     xml_string = xml_string + "   <metadata>\n"
 
     xml_string = xml_string + "      <!-- what comes here?! -->\n"
