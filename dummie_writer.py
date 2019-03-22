@@ -132,7 +132,7 @@ def write_to_file(path, data):
 
 
 def generate_name(data_set):
-    # TODO handle unknown recipients
+    # TODO handle unknown recipients? ... is "unbekannt" a solution?
 
     date = mc.get_date(data_set)
     if date is None:
@@ -147,11 +147,14 @@ def generate_name(data_set):
     author_name = author_name.replace(",", "")
 
     recipients = mc.get_recipient(data_set)
-    recipient = recipients[0]
-    rec_name = recipient['name']
-    rec_name = rec_name.replace(" ", "_")
-    rec_name = rec_name.replace("'", "")
-    rec_name = rec_name.replace(",", "")
+    if len(recipients) == 0:
+        rec_name = "unbekannt"
+    else:
+        recipient = recipients[0]
+        rec_name = recipient['name']
+        rec_name = rec_name.replace(" ", "_")
+        rec_name = rec_name.replace("'", "")
+        rec_name = rec_name.replace(",", "")
 
     res = date + "_" + author_name + "-" + rec_name
     return res
