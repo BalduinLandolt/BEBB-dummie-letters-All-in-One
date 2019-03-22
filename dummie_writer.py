@@ -1,6 +1,7 @@
 import os
 import marc_handler as mc
 import codecs
+import traceback
 
 force_all = False
 is_test = False
@@ -42,6 +43,7 @@ def try_to_write_dummy(data_set):
         print("\n\n\n\n!!!!!!!!!!!!!!!!!!!! Error !!!!!!!!!!!!!!!!!!!!!")
         print("Error occured in: " + name)
         print(e)
+        print(traceback.format_exc())
         quit(1)
 
 
