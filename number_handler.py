@@ -11,6 +11,7 @@ and eventually have a dummy XML file created.
 import os
 from lxml import etree
 import random
+import sys
 
 
 force_all = False
@@ -140,12 +141,17 @@ def grab_used_nos():
 
     print("\nloading system numbers from files...\n")
     res = []
+    i = 1
+    max = len(files)+1
     for f in files:
+        sys.stdout.write("\r{} of {}".format(i, max))
+        sys.stdout.flush()
+        i = i + 1
         # print(f)
         sys_no = get_by_name(f)
         res.append(sys_no)
 
-    print("got {} numbers to work with.".format(len(res)))
+    print("\ngot {} numbers to work with.".format(len(res)))
 #    print("Result: ")
 #    print(res)
     return res
